@@ -1,0 +1,27 @@
+version: '3.7'
+
+x-common: &common
+    image: liofal/youtube-dl:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: 
+        - default.env
+    user: 1027:100
+    working_dir: /download
+    logging:
+      driver: json-file
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    volumes:
+    - /volume1/twitch:/download
+
+services:
+ j_alexander_hs:
+    <<: *common
+    environment:
+      - url=https://www.twitch.tv/j_alexander_hs/videos/all
+
+    
