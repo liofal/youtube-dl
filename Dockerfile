@@ -18,4 +18,4 @@ COPY --from=builder /install /usr/local
 RUN apk add  --no-cache ffmpeg
 
 # Configure entrypoint with environment variables (only user is mandatory)
-ENTRYPOINT youtube-dl --newline -i --max-downloads ${maxdownloads} --format ${format} ${url}
+ENTRYPOINT youtube-dl --max-downloads ${maxdownloads} --format ${format} --match-filter "!is_live" ${url}

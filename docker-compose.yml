@@ -21,6 +21,7 @@ x-common: &common
 services:
  j_alexander_hs:
     <<: *common
+    container_name: youtube-dl_j_alexander_hs
     environment:
       - url=https://www.twitch.tv/j_alexander_hs/videos/all
 
