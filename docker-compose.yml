@@ -25,4 +25,14 @@ services:
     environment:
       - url=https://www.twitch.tv/j_alexander_hs/videos/all
 
-    
+ glory_hs:
+    <<: *common
+    container_name: youtube-dl_glory__hs
+    environment:
+      - url=https://www.twitch.tv/glory__hs/videos/all
+
+ sidisi767:
+    <<: *common
+    container_name: youtube-dl_sidisi767
+    environment:
+      - url=https://www.twitch.tv/sidisi767/videos/all
