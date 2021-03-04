@@ -36,3 +36,9 @@ services:
     container_name: youtube-dl_sidisi767
     environment:
       - url=https://www.twitch.tv/sidisi767/videos/all
+
+ dragonriderdk:
+    <<: *common
+    container_name: youtube-dl_dragonriderdk
+    environment:
+      - url=https://www.twitch.tv/dragonriderdk/videos/all
