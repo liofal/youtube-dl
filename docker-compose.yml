@@ -1,7 +1,7 @@
 version: '3.7'
 
 x-common: &common
-    image: liofal/youtube-dl:1.1.1
+    image: liofal/youtube-dl:1.2.0
     build:
       context: .
       dockerfile: Dockerfile
@@ -19,26 +19,8 @@ x-common: &common
     - /volume1/twitch:/download
 
 services:
- j_alexander_hs:
+ youtube-dl:
     <<: *common
-    container_name: youtube-dl_j_alexander_hs-beta
+    container_name: youtube-dl_${TWITCH}
     environment:
-      - url=https://www.twitch.tv/j_alexander_hs/videos/all
-
- glory_hs:
-    <<: *common
-    container_name: youtube-dl_glory__hs
-    environment:
-      - url=https://www.twitch.tv/glory__hs/videos/all
-
- sidisi767:
-    <<: *common
-    container_name: youtube-dl_sidisi767
-    environment:
-      - url=https://www.twitch.tv/sidisi767/videos/all
-
- dragonriderdk:
-    <<: *common
-    container_name: youtube-dl_dragonriderdk
-    environment:
-      - url=https://www.twitch.tv/dragonriderdk/videos/all
+      - url=https://www.twitch.tv/${TWITCH}/videos/all
