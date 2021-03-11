@@ -19,26 +19,10 @@ x-common: &common
     - /volume1/twitch:/download
 
 services:
- j_alexander_hs:
+ youtube-dl:
     <<: *common
-    container_name: youtube-dl_j_alexander_hs-beta
+    container_name: youtube-dl_${TWITCH}-beta
     environment:
-      - url=https://www.twitch.tv/j_alexander_hs/videos/all
+      - url=https://www.twitch.tv/${TWITCH}/videos/all
 
- glory_hs:
-    <<: *common
-    container_name: youtube-dl_glory__hs
-    environment:
-      - url=https://www.twitch.tv/glory__hs/videos/all
-
- sidisi767:
-    <<: *common
-    container_name: youtube-dl_sidisi767
-    environment:
-      - url=https://www.twitch.tv/sidisi767/videos/all
-
- dragonriderdk:
-    <<: *common
-    container_name: youtube-dl_dragonriderdk
-    environment:
-      - url=https://www.twitch.tv/dragonriderdk/videos/all
+  
