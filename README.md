@@ -12,5 +12,5 @@ export TWITCH=j_alexander_hs
 docker-compose up youtube-dl
 ```
 
-## 1.2.2
-Upgrade to python:3.10-alpine
+## 1.2.3
+Display progress on a newline
