@@ -12,5 +12,8 @@ export TWITCH=j_alexander_hs
 docker-compose up youtube-dl
 ```
 
+## 1.3.1
+Add retries default to 5
+
 ## 1.3
 Upgrade to python 3.11
