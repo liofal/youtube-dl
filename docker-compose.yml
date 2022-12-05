@@ -1,7 +1,7 @@
 version: '3.7'
 
 x-common: &common
-    image: liofal/youtube-dl:1.3
+    image: liofal/youtube-dl:2.0
     build:
       context: .
       dockerfile: Dockerfile
@@ -24,3 +24,7 @@ services:
     container_name: youtube-dl_${TWITCH}
     environment:
       - url=https://www.twitch.tv/${TWITCH}/videos/all
+
+ youtube-dl-latest:
+    <<: *common
+    image: liofal/youtube-dl:latest
