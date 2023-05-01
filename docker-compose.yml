@@ -23,7 +23,7 @@ x-common: &common
 services:
  youtube-dl:
     <<: *common
-    container_name: youtube-dl_${TWITCH}-beta
+    container_name: youtube-dl_${TWITCH}
 
  youtube-dl-latest:
     <<: *common
