@@ -2,8 +2,8 @@
 
 # Set default values if environment variables are not provided
 : "${TWITCH:?TWITCH environment variable not set}"
-: "${MAX_DOWNLOADS:=10}"
-: "${FORMAT:=best}"
+: "${MAX_DOWNLOADS:=5}"
+: "${FORMAT:=bestvideo*+bestaudio/best}"
 
 channel_url="https://www.twitch.tv/${TWITCH}"
 
