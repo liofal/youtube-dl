@@ -1,12 +1,14 @@
 version: '3.7'
 
 x-common: &common
-    image: liofal/youtube-dl:2.0.1
+    image: liofal/youtube-dl:2.1.0
     build:
       context: .
       dockerfile: Dockerfile
     env_file: 
         - default.env
+    environment:
+      - TWITCH
     user: 1027:100
     working_dir: /download
     logging:
@@ -21,9 +23,7 @@ x-common: &common
 services:
  youtube-dl:
     <<: *common
-    container_name: youtube-dl_${TWITCH}
-    environment:
-      - url=https://www.twitch.tv/${TWITCH}/videos/all
+    container_name: youtube-dl_${TWITCH}-beta
 
  youtube-dl-latest:
     <<: *common
