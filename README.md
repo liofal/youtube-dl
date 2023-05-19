@@ -12,9 +12,11 @@ export TWITCH=j_alexander_hs
 docker-compose up youtube-dl
 ```
 
+## 2.3
+addition of cookies file for support of download of subscribers only vod's
+
 ## 2.2
 adapting for twitch stream to prevent download of vod of ongoing livestream
-
 addition of devcontainer definition
 
 ## 2.0
