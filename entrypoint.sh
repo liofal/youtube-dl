@@ -12,7 +12,7 @@ download_videos() {
     yt-dlp --newline --continue --fixup warn --playlist-start "$playlist_start" \
            --max-downloads "${MAX_DOWNLOADS}" --format "${FORMAT}" \
            --retries 5 \
-           --cookies cookies.txt \
+           --cookies /download/cookies.txt \
            --download-archive '/download/archive.fil' \
            --concurrent-fragments 5 --downloader aria2c --throttled-rate 100K \
            --output '/download/%(uploader)s/%(upload_date)s-%(title)s-%(id)s.%(ext)s' \
