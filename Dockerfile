@@ -16,7 +16,7 @@ RUN pip install --prefix=/install -r requirements.txt
 # Run in minimal alpine container with no other dependencies
 FROM base as runner
 COPY --from=builder /install /usr/local
-# RUN apk add  --no-cache ffmpeg
+RUN apk add  --no-cache ffmpeg
 
 # Add entrypoint script
 COPY entrypoint.sh /entrypoint.sh
