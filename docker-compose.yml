@@ -1,7 +1,7 @@
 version: '3.7'
 
 x-common: &common
-    image: liofal/youtube-dl:2.3.0
+    image: liofal/youtube-dl:2.3.1
     build:
       context: .
       dockerfile: Dockerfile
@@ -19,7 +19,7 @@ x-common: &common
     - /volume1/twitch:/download
 
 services:
- youtube-dl:
+ twitch:
     <<: *common
     container_name: youtube-dl_${TWITCH}
     environment:
