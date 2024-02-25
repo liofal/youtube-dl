@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: youtube-dl-{{ .Values.streamer.name }}
+
+spec:
+  schedule: "{{ .Values.schedule }}"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: youtube-dl-{{ .Values.streamer.name }}
+        spec:
+          serviceAccountName: youtube-dl-{{ .Values.streamer.name }}
+          containers:
+          - name: youtube-dl-{{ .Values.streamer.name }}
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            envFrom:
+            - configMapRef:
+                name: youtube-dl-config-{{ .Values.streamer.name }}
+            volumeMounts:
+            - name: twitch-volume
+              mountPath: /download
+          restartPolicy: OnFailure
+          volumes:
+          - name: twitch-volume
+            nfs:
+              server: {{ .Values.nfs.server }}
+              path: {{ .Values.nfs.path }}
