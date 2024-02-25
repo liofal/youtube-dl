@@ -2,6 +2,35 @@
 
 # Usage
 
+## Kubernetes Deployment with Helm
+
+To deploy the application on Kubernetes using Helm, you need to configure the Helm chart with the appropriate values for your environment. Here's how to do it:
+
+1. Copy the `kube/charts/values.yaml` file and name it according to your streamer's name, for example, `values-j_alexander_hs.yaml`.
+2. Edit the copied values file with the streamer's details and any other configurations you want to customize. For example:
+   ```yaml
+   streamer:
+     name: "j_alexander_hs"
+     twitchName: "j_alexander_hs"
+   ```
+3. Save the changes to your new values file.
+4. To deploy the Helm chart with your custom values, run the following command from the root of the project:
+   ```shell
+   helm install youtube-dl-chart ./kube/charts --values ./kube/charts/values-j_alexander_hs.yaml
+   ```
+   Replace `youtube-dl-chart` with the name you want to give your Helm release, and adjust the paths if your chart is located elsewhere.
+5. To update your deployment with new values or after changing the chart, use the `helm upgrade` command:
+   ```shell
+   helm upgrade youtube-dl-chart ./kube/charts --values ./kube/charts/values-j_alexander_hs.yaml
+   ```
+6. If you need to remove the deployment, you can use the `helm uninstall` command:
+   ```shell
+   helm uninstall youtube-dl-chart
+   ```
+
+For more details on configuring the Helm chart, refer to the comments in the `values.yaml` file and the Helm documentation.
+
+## Docker Deployment with compose
 service definition is now through environment variable, multiple ways are supported, see here:
 https://docs.docker.com/compose/environment-variables/
 
@@ -11,6 +40,9 @@ ie:
 export TWITCH=j_alexander_hs
 docker-compose up youtube-dl
 ```
+
+## 3.0
+support for kubernetes deployment via helm charts.
 
 ## 2.3
 addition of cookies file for support of download of subscribers only vod's

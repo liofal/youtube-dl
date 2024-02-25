@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: youtube-dl-config-{{ .Values.streamer.name }}
+
+data:
+  TWITCH: "{{ .Values.streamer.twitchName }}"
+  MAX_DOWNLOADS: "5"
+  FORMAT: "bestvideo*+bestaudio/best"

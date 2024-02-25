@@ -1,0 +1,14 @@
+schedule: "0 * * * *"
+
+streamer:
+  name: "<name_here>"
+  twitchName: "<twitch_name_here>"
+
+image:
+  repository: ghcr.io/liofal/youtube-dl
+  tag: master
+  pullPolicy: Always
+
+nfs:
+  server: <server_ip_here>
+  path: /<volume>/<folder>
