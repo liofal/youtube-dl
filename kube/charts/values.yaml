@@ -12,3 +12,7 @@ image:
 nfs:
   server: <server_ip_here>
   path: /<volume>/<folder>
+
+cleanup:
+  enabled: false
+  daysOld: 30

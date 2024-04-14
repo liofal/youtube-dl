@@ -24,6 +24,22 @@ spec:
             volumeMounts:
             - name: twitch-volume
               mountPath: /download
+        {{- if .Values.cleanup.enabled }}
+          - name: youtube-dl-{{ .Values.streamer.name }}-cleanup
+            image: busybox
+            command: ["/bin/sh", "-c"]
+            args:
+              - |
+                # List files older than a specified time to check what would be deleted
+                echo "Listing files older than {{ .Values.cleanup.daysOld }} days:"
+                find /download/{{ .Values.streamer.twitchName }} -type f -mtime +{{ .Values.cleanup.daysOld }} -name '*.mp4'
+                # Uncomment the next line to enable deletion
+                find /download/{{ .Values.streamer.twitchName }} -type f -mtime +{{ .Values.cleanup.daysOld }} -name '*.mp4' -exec rm {} +
+                echo "Cleanup completed."
+            volumeMounts:
+              - name: twitch-volume
+                mountPath: /download
+        {{- end }}
           restartPolicy: OnFailure
           volumes:
           - name: twitch-volume
