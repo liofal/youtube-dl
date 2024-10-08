@@ -14,7 +14,7 @@ download_videos() {
            --retries 5 \
            --cookies /download/cookies.txt \
            --download-archive '/download/archive.fil' \
-           --concurrent-fragments 5 --downloader aria2c --throttled-rate 100K \
+           --concurrent-fragments 5 --downloader aria2c --throttled-rate 100K --no-post-overwrites \
            --output '/download/%(uploader)s/%(upload_date)s-%(title)s-%(id)s.%(ext)s' \
            $channel_url/videos/all
 }
