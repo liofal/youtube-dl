@@ -4,10 +4,13 @@ FROM python:3-alpine as base
 # Build dependencies in python
 FROM base as builder
 
+# Install build dependencies
+RUN apk add --no-cache gcc musl-dev libffi-dev
+
 # Install every build dependencies in builder image
 RUN mkdir /install
 WORKDIR /install
-RUN pip install --upgrade pip
+RUN pip install --upgrade pip setuptools
 
 # install dependencies and build
 ADD requirements.txt /install
