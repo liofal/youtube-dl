@@ -5,8 +5,70 @@ on:
     branches: [ main ]
 
 jobs:
-  deploy:
+  # Job to run the reusable workflow for release and image push
+  deploy: # Removed id: deploy
     uses: liofal/actions/.github/workflows/build_and_deploy.yml@main
     permissions:
-      packages: write
+      contents: write # Needed by reusable workflow for semantic-release
+      packages: write # Needed by reusable workflow for GHCR push
     secrets: inherit
+
+  # Job to update manifests after a successful release
+  update-manifests:
+    runs-on: ubuntu-latest
+    needs: deploy # Run after the deploy job
+    # Only run if a new release was actually published by the deploy job
+    if: needs.deploy.outputs.new_release_published == 'true'
+    permissions:
+      contents: write # Need permission to write back to the repository
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Fetch the token to allow pushing changes back
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get new version
+        env:
+          NEW_VERSION: ${{ needs.deploy.outputs.new_release_version }}
+        run: |
+          echo "New version: $NEW_VERSION"
+
+      - name: Update Chart.yaml
+        env:
+          NEW_VERSION: ${{ needs.deploy.outputs.new_release_version }}
+        run: |
+          sed -i "s#^version:.*#version: ${NEW_VERSION}#g" kube/charts/Chart.yaml
+          sed -i "s#^appVersion:.*#appVersion: \"${NEW_VERSION}\"#g" kube/charts/Chart.yaml
+
+      - name: Update values.yaml
+        env:
+          NEW_VERSION: ${{ needs.deploy.outputs.new_release_version }}
+        run: |
+          sed -i "s#tag:.*#tag: ${NEW_VERSION}#g" kube/charts/values.yaml
+
+      - name: Update docker-compose.yml
+        env:
+          NEW_VERSION: ${{ needs.deploy.outputs.new_release_version }}
+        run: |
+          sed -i "s#image: ghcr.io/liofal/youtube-dl:.*#image: ghcr.io/liofal/youtube-dl:${NEW_VERSION}#g" docker-compose.yml
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit changes
+        env:
+          NEW_VERSION: ${{ needs.deploy.outputs.new_release_version }}
+        run: |
+          git add kube/charts/Chart.yaml kube/charts/values.yaml docker-compose.yml
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: update manifests to version ${NEW_VERSION} [skip ci]"
+          fi
+
+      - name: Push changes
+        run: git push
