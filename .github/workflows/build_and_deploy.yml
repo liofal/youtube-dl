@@ -3,10 +3,6 @@ name: Build docker images with reusable actions.
 on:
   push:
     branches: [ main ]
-    tags:
-      - '*'
-  pull_request:
-    branches: [ main ]
 
 jobs:
   deploy:
