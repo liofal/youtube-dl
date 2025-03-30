@@ -3,6 +3,8 @@ name: Build docker images with reusable actions.
 on:
   push:
     branches: [ main ]
+    tags:
+      - 'v*.*.*'
 
 jobs:
   # Job to run the reusable workflow for release and image push
