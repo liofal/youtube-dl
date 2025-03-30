@@ -41,6 +41,14 @@ export TWITCH=j_alexander_hs
 docker-compose up youtube-dl
 ```
 
+# Versioning Change Notice
+
+**Important:** Starting from version `v3.0.0`, this project has adopted Semantic Versioning (SemVer) using the `vX.X.X` format (e.g., `v3.0.0`, `v3.1.0`).
+
+Previously, versions might have been tagged without the leading `v` (e.g., `3.0`, `2.3`). This change aligns the project with standard versioning practices for clearer release management.
+
+If you are pulling images using specific version tags, please ensure you use the new `vX.X.X` format going forward (e.g., `image:tag` becomes `image:v3.0.0`). Users pulling the `latest` tag are generally unaffected by this change in tagging convention but relying on `latest` is not recommended for production environments.
+
 ## 3.0
 support for kubernetes deployment via helm charts.
 
