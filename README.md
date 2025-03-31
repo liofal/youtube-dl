@@ -4,31 +4,54 @@
 
 ## Kubernetes Deployment with Helm
 
-To deploy the application on Kubernetes using Helm, you need to configure the Helm chart with the appropriate values for your environment. Here's how to do it:
+This project publishes its Helm chart to GitHub Container Registry (GHCR), allowing for easy installation.
 
-1. Copy the `kube/charts/values.yaml` file and name it according to your streamer's name, for example, `values-j_alexander_hs.yaml`.
-2. Edit the copied values file with the streamer's details and any other configurations you want to customize. For example:
-   ```yaml
-   streamer:
-     name: "j_alexander_hs"
-     twitchName: "j_alexander_hs"
-   ```
-3. Save the changes to your new values file.
-4. To deploy the Helm chart with your custom values, run the following command from the root of the project:
-   ```shell
-   helm install youtube-dl-chart ./kube/charts --values ./kube/charts/values-j_alexander_hs.yaml
-   ```
-   Replace `youtube-dl-chart` with the name you want to give your Helm release, and adjust the paths if your chart is located elsewhere.
-5. To update your deployment with new values or after changing the chart, use the `helm upgrade` command:
-   ```shell
-   helm upgrade youtube-dl-chart ./kube/charts --values ./kube/charts/values-j_alexander_hs.yaml
-   ```
-6. If you need to remove the deployment, you can use the `helm uninstall` command:
-   ```shell
-   helm uninstall youtube-dl-chart
-   ```
+**Prerequisites:**
+*   Helm v3.8.0 or later (for OCI support).
+*   Access to your Kubernetes cluster configured (`kubectl` context).
 
-For more details on configuring the Helm chart, refer to the comments in the `values.yaml` file and the Helm documentation.
+**Installation:**
+
+1.  **Install the Chart:** Install the Helm chart directly from the GHCR OCI registry.
+    *   Replace `<release-name>` with a name for your deployment (e.g., `youtube-dl-streamer1`).
+    *   Replace `<chart-version>` with the specific chart version you want to deploy (e.g., `3.1.0`). Find available versions on the repository's Packages page. Note that chart versions in the registry do not have the `v` prefix.
+
+    ```shell
+    helm install <release-name> oci://ghcr.io/liofal/youtube-dl/youtube-dl-chart --version <chart-version>
+    ```
+
+2.  **Customize Installation (Optional):** You can override default values from `values.yaml` during installation:
+    *   Using `--set` (example for streamer 'j_alexander_hs', assuming chart version `3.1.0`):
+        ```shell
+        helm install <release-name> oci://ghcr.io/liofal/youtube-dl/youtube-dl-chart --version 3.1.0 --set streamer.name=j_alexander_hs --set streamer.twitchName=j_alexander_hs
+        ```
+    *   Using a custom values file (example for streamer 'j_alexander_hs', assuming chart version `3.1.0`): Create a `my-values.yaml` file and use `-f`:
+        ```yaml
+        # my-values.yaml
+        streamer:
+          name: "j_alexander_hs"
+          twitchName: "j_alexander_hs"
+        # schedule: "*/30 * * * *" # Example override
+        ```
+        ```shell
+        helm install <release-name> oci://ghcr.io/liofal/youtube-dl/youtube-dl-chart --version 3.1.0 -f my-values.yaml
+        ```
+
+**Upgrading:**
+
+To upgrade an existing release to a new chart version (e.g., `3.2.0`) or with changed values:
+```shell
+helm upgrade <release-name> oci://ghcr.io/liofal/youtube-dl/youtube-dl-chart --version <new-chart-version> [-f my-values.yaml] [--set key=value,...]
+```
+
+**Uninstalling:**
+
+To remove the deployment:
+```shell
+helm uninstall <release-name>
+```
+
+**(Note on Authentication):** Since the GHCR package for this chart is public, `helm registry login ghcr.io` is typically not required for installation or upgrades. Login might only be necessary for specific actions or if the package visibility changes in the future.*
 
 ## Docker Deployment with compose
 service definition is now through environment variable, multiple ways are supported, see here:

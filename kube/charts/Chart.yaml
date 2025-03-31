@@ -3,9 +3,11 @@ name: youtube-dl-chart
 description: A Helm chart for Kubernetes to run youtube-dl jobs for different streamers
 type: application
 
-version: 0.1.0
+version: v3.1.0
+# This version should be updated by semantic-release
 
-appVersion: "2.3.1"
+appVersion: "v3.1.0"
+# This version should be updated by semantic-release
 
 home: https://github.com/liofal/youtube-dl
 

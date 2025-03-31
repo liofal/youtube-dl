@@ -2,7 +2,6 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: youtube-dl-{{ .Values.streamer.name }}
-
 spec:
   schedule: "{{ .Values.schedule }}"
   concurrencyPolicy: Forbid
@@ -16,7 +15,7 @@ spec:
           serviceAccountName: youtube-dl-{{ .Values.streamer.name }}
           containers:
           - name: youtube-dl-{{ .Values.streamer.name }}
-            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }}
             envFrom:
             - configMapRef:

@@ -6,7 +6,7 @@ streamer:
 
 image:
   repository: ghcr.io/liofal/youtube-dl
-  tag: v3.1.0
+  # tag is now derived from Chart.AppVersion in templates
   pullPolicy: Always
 
 nfs:
