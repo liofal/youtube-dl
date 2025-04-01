@@ -5,6 +5,10 @@
   ],
   "packageRules": [
     {
+      "matchPackageNames": ["yt-dlp"],
+      "semanticCommitType": "fix"
+    },
+    {
       "matchUpdateTypes": [
         "minor",
         "patch"
