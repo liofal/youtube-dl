@@ -1,3 +1,3 @@
-yt-dlp==2025.6.30
+yt-dlp==2025.7.21
 pre-commit==4.2.0
 commitizen==4.8.3
