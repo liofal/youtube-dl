@@ -4,6 +4,12 @@ streamer:
   name: "<name_here>"
   twitchName: "<twitch_name_here>"
 
+# Maximum number of VODs to download per CronJob run
+maxDownloads: 5
+
+# yt-dlp --format expression
+format: "bestvideo*+bestaudio/best"
+
 image:
   repository: ghcr.io/liofal/youtube-dl
   # tag is now derived from Chart.AppVersion in templates

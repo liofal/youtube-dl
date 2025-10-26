@@ -5,5 +5,5 @@ metadata:
 
 data:
   TWITCH: "{{ .Values.streamer.twitchName }}"
-  MAX_DOWNLOADS: "5"
-  FORMAT: "bestvideo*+bestaudio/best"
+  MAX_DOWNLOADS: "{{ .Values.maxDownloads }}"
+  FORMAT: "{{ .Values.format }}"
