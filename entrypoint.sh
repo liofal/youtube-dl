@@ -17,6 +17,14 @@ download_videos() {
            --concurrent-fragments 5 --downloader aria2c --throttled-rate 100K --no-post-overwrites \
            --output '/download/%(uploader)s/%(upload_date)s-%(title)s-%(id)s.%(ext)s' \
            $channel_url/videos/all
+
+    status=$?
+    if [ "$status" -eq 101 ]; then
+        echo "yt-dlp reached the --max-downloads limit; treating as success."
+        return 0
+    fi
+
+    return $status
 }
 
 # Capture the output of the yt-dlp command
