@@ -29,11 +29,16 @@ spec:
             command: ["/bin/sh", "-c"]
             args:
               - |
-                # List files older than a specified time to check what would be deleted
-                echo "Listing files older than {{ .Values.cleanup.daysOld }} days:"
-                find /download/{{ .Values.streamer.twitchName }} -type f -mtime +{{ .Values.cleanup.daysOld }} -name '*.mp4'
-                # Uncomment the next line to enable deletion
-                find /download/{{ .Values.streamer.twitchName }} -type f -mtime +{{ .Values.cleanup.daysOld }} -name '*.mp4' -exec rm {} +
+                STREAM_DIR=$(find /download -maxdepth 1 -type d -iname '{{ .Values.streamer.twitchName }}' | head -n 1)
+                if [ -z "$STREAM_DIR" ]; then
+                  echo "No download directory found for {{ .Values.streamer.twitchName }}, skipping cleanup."
+                  exit 0
+                fi
+
+                echo "Listing files older than {{ .Values.cleanup.daysOld }} days in $STREAM_DIR:"
+                find "$STREAM_DIR" -type f -mtime +{{ .Values.cleanup.daysOld }} -name '*.mp4'
+                echo "Removing files older than {{ .Values.cleanup.daysOld }} days in $STREAM_DIR:"
+                find "$STREAM_DIR" -type f -mtime +{{ .Values.cleanup.daysOld }} -name '*.mp4' -exec rm {} +
                 echo "Cleanup completed."
             volumeMounts:
               - name: twitch-volume
