@@ -41,18 +41,18 @@
     }
   ],
   "pip_requirements": {
-    "fileMatch": [
-      "requirements.txt"
+    "managerFilePatterns": [
+      "/requirements\\.txt/"
     ]
   },
   "dockerfile": {
-    "fileMatch": [
-      "Dockerfile"
+    "managerFilePatterns": [
+      "/Dockerfile/"
     ]
   },
   "github-actions": {
-    "fileMatch": [
-      ".github/workflows/*.yml"
+    "managerFilePatterns": [
+      "/\\.github\\/workflows\\/.*\\.yml/"
     ]
   },
   "labels": [
@@ -70,7 +70,5 @@
   "dependencyDashboardTitle": "Dependency Dashboard",
   "semanticCommits": "enabled",
   "semanticCommitType": "chore",
-  "semanticCommitScope": "deps",
-  "semanticCommitAction": "update",
-  "semanticCommitSubject": "{{depName}} to {{newVersion}}"
+  "semanticCommitScope": "deps"
 }
