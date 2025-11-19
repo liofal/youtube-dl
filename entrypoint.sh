@@ -4,6 +4,7 @@
 : "${TWITCH:?TWITCH environment variable not set}"
 : "${MAX_DOWNLOADS:=10}"
 : "${FORMAT:=bestvideo*+bestaudio/best}"
+: "${MATCH_FILTER:=live_status!=is_live}"
 
 channel_url="https://www.twitch.tv/${TWITCH}"
 
@@ -15,6 +16,7 @@ download_videos() {
            --cookies /download/cookies.txt \
            --download-archive '/download/archive.fil' \
            --concurrent-fragments 5 --downloader aria2c --throttled-rate 100K --no-post-overwrites \
+           --match-filter "${MATCH_FILTER}" \
            --output '/download/%(uploader)s/%(upload_date)s-%(title)s-%(id)s.%(ext)s' \
            $channel_url/videos/all
 
@@ -28,7 +30,7 @@ download_videos() {
 }
 
 # Capture the output of the yt-dlp command
-output=$(yt-dlp --match-filter "!is_live" $channel_url 2>&1)
+output=$(yt-dlp --match-filter "${MATCH_FILTER}" $channel_url 2>&1)
 
 # Check if the output contains the "skipping" message
 if echo "$output" | grep -q "skipping"; then
