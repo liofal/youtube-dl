@@ -1,7 +1,7 @@
 version: '3.7'
 
 x-common: &common
-    image: ghcr.io/liofal/youtube-dl:3.2.57
+    image: ghcr.io/liofal/youtube-dl:3.2.58
     build:
       context: .
       dockerfile: Dockerfile
