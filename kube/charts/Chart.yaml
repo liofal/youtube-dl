@@ -2,8 +2,8 @@ apiVersion: v2
 name: youtube-dl-chart
 description: A Helm chart for Kubernetes to run youtube-dl jobs for different streamers
 type: application
-version: 3.2.104
-appVersion: 3.2.104
+version: 3.2.105
+appVersion: 3.2.105
 home: https://github.com/liofal/youtube-dl
 sources:
   - https://github.com/liofal/youtube-dl
