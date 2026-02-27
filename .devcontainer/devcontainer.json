@@ -18,6 +18,32 @@
 	"onCreateCommand": "pip install --user pre-commit",
 	"postCreateCommand": "pre-commit install --hook-type commit-msg",
 
+	"mounts": [
+		"source=${localEnv:HOME}/.kube/,target=/home/vscode/.kube/,type=bind",
+		"source=${localEnv:HOME}/.claude,target=/home/vscode/.claude,type=bind",
+		"source=${localEnv:HOME}/.codex,target=/home/vscode/.codex,type=bind"
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"weaveworks.vscode-gitops-tools",
+				"openai.chatgpt",
+				"Anthropic.claude-code",
+				"kilocode.kilo-code"
+			]
+		}
+	},
+	"containerEnv": {
+		"KUBECONFIG": "/home/vscode/.kube/k3s.config",
+		"AWS_PROFILE": "SpeosInnovationProd",
+		"CLAUDE_CODE_USE_BEDROCK": "1",
+		"AWS_REGION": "eu-west-1"
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {},
+		"ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
+	}
+
 	// Configure tool-specific properties.
 	// "customizations": {},
 
