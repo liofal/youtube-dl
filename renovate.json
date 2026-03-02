@@ -5,18 +5,12 @@
   ],
   "packageRules": [
     {
-      "matchPackageNames": ["yt-dlp"],
-      "semanticCommitType": "fix"
-    },
-    {
       "matchUpdateTypes": [
         "minor",
         "patch"
       ],
       "matchCurrentVersion": "!/^0/",
-      "automerge": true,
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "deps"
+      "automerge": true
     },
     {
       "matchDepTypes": [
@@ -38,6 +32,13 @@
         "/^husky/",
         "/^semantic-release/"
       ]
+    },
+    {
+      "matchPackageNames": [
+        "yt-dlp"
+      ],
+      "semanticCommitType": "fix",
+      "semanticCommitScope": "deps"
     }
   ],
   "pip_requirements": {
