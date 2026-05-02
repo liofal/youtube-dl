@@ -16,10 +16,11 @@
 	// Uncomment the next line to run commands after the container is created.
 	// "postCreateCommand": "cat /etc/os-release",
 	"onCreateCommand": "pip install --user pre-commit",
-	"postCreateCommand": "pre-commit install --hook-type commit-msg",
+	"postCreateCommand": "bash .devcontainer/post-create.sh",
 
 	"mounts": [
 		"source=${localEnv:HOME}/.kube/,target=/home/vscode/.kube/,type=bind",
+		"source=${localEnv:HOME}/.pi,target=/home/vscode/.pi,type=bind",
 		"source=${localEnv:HOME}/.claude,target=/home/vscode/.claude,type=bind",
 		"source=${localEnv:HOME}/.codex,target=/home/vscode/.codex,type=bind"
 	],
@@ -42,6 +43,9 @@
 	"features": {
 		"ghcr.io/devcontainers/features/node:2": {},
 		"ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
+	},
+	"remoteEnv": {
+		"PATH": "${containerWorkspaceFolder}/node_modules/.bin:/usr/local/share/npm-global/bin:/usr/local/bin:${containerEnv:PATH}"
 	}
 
 	// Configure tool-specific properties.
