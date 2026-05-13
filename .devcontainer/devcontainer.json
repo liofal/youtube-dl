@@ -17,6 +17,7 @@
 	// "postCreateCommand": "cat /etc/os-release",
 	"onCreateCommand": "pip install --user pre-commit",
 	"postCreateCommand": "bash .devcontainer/post-create.sh",
+	"postStartCommand": "bash .devcontainer/ensure-pi.sh",
 
 	"mounts": [
 		"source=${localEnv:HOME}/.kube/,target=/home/vscode/.kube/,type=bind",
@@ -45,7 +46,7 @@
 		"ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
 	},
 	"remoteEnv": {
-		"PATH": "${containerWorkspaceFolder}/node_modules/.bin:/usr/local/share/npm-global/bin:/usr/local/bin:${containerEnv:PATH}"
+		"PATH": "/home/vscode/.pi/npm-global/bin:${containerWorkspaceFolder}/node_modules/.bin:/usr/local/share/npm-global/bin:/usr/local/bin:${containerEnv:PATH}"
 	}
 
 	// Configure tool-specific properties.
