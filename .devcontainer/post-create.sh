@@ -35,34 +35,15 @@ ensure_sops() {
   sudo install -m 0755 "${tmp_file}" /usr/local/bin/sops
 }
 
-ensure_pi_coding_agent() {
-  if ! command -v npm >/dev/null 2>&1; then
-    echo "npm is required to install the Pi coding agent but was not found." >&2
-    exit 1
-  fi
-
-  mkdir -p \
-    "${HOME}/.pi/agent" \
-    .pi/sessions
-
-  bash .devcontainer/ensure-pi.sh
-}
-
 ensure_pre_commit_hooks() {
   pre-commit install --hook-type commit-msg
 }
 
 print_versions() {
-  if command -v pi >/dev/null 2>&1; then
-    echo "Pi: $(pi --version 2>&1)"
-  else
-    echo "Pi: $(command -v pi)"
-  fi
-
   echo "sops: $(sops --version)"
 }
 
 ensure_sops
-ensure_pi_coding_agent
+mkdir -p .pi/sessions
 ensure_pre_commit_hooks
 print_versions

@@ -17,7 +17,6 @@
 	// "postCreateCommand": "cat /etc/os-release",
 	"onCreateCommand": "pip install --user pre-commit",
 	"postCreateCommand": "bash .devcontainer/post-create.sh",
-	"postStartCommand": "bash .devcontainer/ensure-pi.sh",
 
 	"mounts": [
 		"source=${localEnv:HOME}/.kube/,target=/home/vscode/.kube/,type=bind",
@@ -31,8 +30,12 @@
 				"weaveworks.vscode-gitops-tools",
 				"openai.chatgpt",
 				"Anthropic.claude-code",
-				"kilocode.kilo-code"
-			]
+				"kilocode.kilo-code",
+				"pi0.pi-vscode"
+			],
+			"settings": {
+				"pi-vscode.path": "/home/vscode/.pi/npm-global/bin/pi"
+			}
 		}
 	},
 	"containerEnv": {
